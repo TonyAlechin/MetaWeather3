@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using MTCL;
+using static MetaWeather.MetaWeatherClient;
 
 namespace MetaWeather.TestConsole
 {
@@ -18,7 +20,7 @@ namespace MetaWeather.TestConsole
 
         private static void ConfigureServices(HostBuilderContext host, IServiceCollection services)
         {
-            
+            services.AddHttpClient<MetaWeatherClient>(client => client.BaseAddress = new Uri(host.Configuration["MetaWeather"]));
         }
 
         static async Task Main(string[] args)
@@ -26,8 +28,12 @@ namespace MetaWeather.TestConsole
             using var host = Hosting;
             await host.StartAsync();
 
-            Console.WriteLine("Завершено!");
+            var weather = Services.GetRequiredService<MetaWeatherClient>();
+            var location =await weather.GetLocation("Kolomna");
 
+            await Console.Out.WriteLineAsync($"Температура в Коломне {Math.Round(location.current.Temperatura_c)}");
+            Console.WriteLine("Завершено!");
+         
             Console.ReadLine();
             await host.StopAsync();
 
