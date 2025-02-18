@@ -5,6 +5,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
 	  <LangVersion>10.0</LangVersion>
+	  <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+	  <Description>Клиент  для MetaWeather</Description>
   </PropertyGroup>
 
   <ItemGroup>
