@@ -33,6 +33,7 @@ namespace MetaWeather.Service
                 else
                 {
                     Console.WriteLine($"{item} нет событий");
+
                 }
             }
 
